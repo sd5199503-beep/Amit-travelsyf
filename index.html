@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Amit Travels | Smart Travel & IRCTC PNR Portal</title>
+    <meta
+      name="description"
+      content="Amit Travels - Book train tickets, flights, buses, tour packages, trek trips, and check live IRCTC PNR status with confirmation chance."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      :root {
+        --app-primary: #2563eb;
+        --app-primary-dark: #1d4ed8;
+        --app-accent: #f59e0b;
+        --app-dark: #0f172a;
+        --app-surface: #ffffff;
+        --app-bg: #f1f5f9;
+        --app-border: #e2e8f0;
+        --app-text: #1e293b;
+        --app-muted: #64748b;
+        --app-success: #16a34a;
+      }
+
+      body {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        background-color: var(--app-bg);
+        color: var(--app-text);
+        padding-bottom: 76px; /* Space for mobile bottom app bar */
+      }
+
+      /* Modern App Header */
+      .topbar {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--app-border);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .brand-copy h1 {
+        font-weight: 800;
+        letter-spacing: -0.5px;
+      }
+
+      /* Dedicated Hero PNR Action Button */
+      .pnr-hero-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.65rem;
+        background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 0.95rem;
+        padding: 0.85rem 1.35rem;
+        border-radius: 14px;
+        text-decoration: none;
+        box-shadow: 0 10px 24px rgba(234, 88, 12, 0.32);
+        margin-bottom: 1.25rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: none;
+        cursor: pointer;
+      }
+
+      .pnr-hero-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 28px rgba(234, 88, 12, 0.42);
+      }
+
+      .pnr-hero-cta .pulse-dot {
+        width: 9px;
+        height: 9px;
+        background: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+        animation: pulseRing 1.6s infinite;
+      }
+
+      @keyframes pulseRing {
+        0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+        70% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+      }
+
+      /* Mobile App Card Styling */
+      .booking-panel, .spotlight-card, .service-card, .trek-card, .package-card, .wallet-card, .payment-box, .help-card {
+        border-radius: 20px !important;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06) !important;
+        border: 1px solid rgba(226, 232, 240, 0.9) !important;
+      }
+
+      /* PNR Checker App Widget */
+      .pnr-section {
+        padding: 2.5rem 0;
+      }
+
+      .pnr-card {
+        background: #ffffff;
+        border-radius: 24px;
+        padding: 1.75rem;
+        box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+        border: 1px solid #e2e8f0;
+        max-width: 860px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .pnr-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #2563eb, #f59e0b, #16a34a);
+      }
+
+      .pnr-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .pnr-badge-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #eff6ff;
+        color: #1d4ed8;
+        font-weight: 700;
+        font-size: 0.75rem;
+        padding: 0.35rem 0.85rem;
+        border-radius: 999px;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        margin-bottom: 0.5rem;
+      }
+
+      .pnr-header h3 {
+        font-size: 1.55rem;
+        font-weight: 800;
+        margin: 0.25rem 0;
+        color: #0f172a;
+      }
+
+      .pnr-header p {
+        color: #64748b;
+        font-size: 0.92rem;
+        margin: 0;
+      }
+
+      .pnr-input-row {
+        display: flex;
+        gap: 0.75rem;
+        max-width: 580px;
+        margin: 0 auto;
+        background: #f8fafc;
+        padding: 0.45rem;
+        border-radius: 16px;
+        border: 1.5px solid #cbd5e1;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+
+      .pnr-input-row:focus-within {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        background: #ffffff;
+      }
+
+      .pnr-input-row input {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        border: none;
+        background: transparent;
+        outline: none;
+        color: #0f172a;
+      }
+
+      .pnr-input-row button {
+        border-radius: 12px;
+        padding: 0.8rem 1.4rem;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .pnr-result-box {
+        display: none;
+        margin-top: 1.75rem;
+        padding-top: 1.5rem;
+        border-top: 1px dashed #cbd5e1;
+        animation: slideUp 0.35s ease;
+      }
+
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .train-info-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #ffffff;
+        padding: 1.1rem 1.25rem;
+        border-radius: 16px;
+        margin-bottom: 1.25rem;
+      }
+
+      .train-info-bar h4 {
+        margin: 0;
+        font-size: 1.08rem;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      .train-route {
+        font-size: 0.85rem;
+        color: #cbd5e1;
+        margin-top: 0.3rem;
+      }
+
+      .chart-badge {
+        background: rgba(56, 189, 248, 0.2);
+        color: #7dd3fc;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        padding: 0.35rem 0.8rem;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      .pnr-details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+
+      .status-box, .chance-box {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 1.15rem;
+      }
+
+      .box-label {
+        font-size: 0.74rem;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: #64748b;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 0.45rem;
+      }
+
+      .status-value {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: #0f172a;
+      }
+
+      .chance-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .chance-percent {
+        font-size: 1.35rem;
+        font-weight: 800;
+      }
+
+      .progress-track {
+        width: 100%;
+        height: 10px;
+        background: #e2e8f0;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        border-radius: 999px;
+        transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .chance-tag {
+        display: inline-block;
+        margin-top: 0.55rem;
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .pnr-actions {
+        margin-top: 1.25rem;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        padding: 0.85rem 1.1rem;
+        border-radius: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        font-size: 0.86rem;
+        color: #166534;
+        font-weight: 500;
+      }
+
+      /* CEO & Founder Card */
+      .founder-banner {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #ffffff;
+        border-radius: 20px;
+        padding: 1.75rem;
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
+      }
+
+      .founder-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .founder-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #2563eb, #38bdf8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #ffffff;
+        flex-shrink: 0;
+      }
+
+      .founder-role {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #38bdf8;
+        font-weight: 700;
+      }
+
+      .founder-name {
+        font-size: 1.25rem;
+        font-weight: 800;
+        margin: 0.15rem 0;
+        color: #ffffff;
+      }
+
+      .founder-desc {
+        font-size: 0.88rem;
+        color: #cbd5e1;
+        margin: 0;
+      }
+
+      /* Mobile App Bottom Navigation Bar */
+      .mobile-app-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-top: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0.5rem 0.25rem calc(0.5rem + env(safe-area-inset-bottom));
+        z-index: 999;
+        box-shadow: 0 -6px 20px rgba(15, 23, 42, 0.06);
+      }
+
+      .mobile-app-nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #64748b;
+        font-size: 0.7rem;
+        font-weight: 600;
+        gap: 3px;
+        padding: 0.25rem 0.5rem;
+        border-radius: 10px;
+        transition: color 0.2s, background 0.2s;
+      }
+
+      .mobile-app-nav a.active,
+      .mobile-app-nav a:hover {
+        color: #2563eb;
+      }
+
+      .mobile-app-nav a.nav-pnr-highlight {
+        background: #eff6ff;
+        color: #2563eb;
+        font-weight: 700;
+      }
+
+      .mobile-app-nav .nav-icon {
+        font-size: 1.2rem;
+        line-height: 1;
+      }
+
+      @media (min-width: 900px) {
+        .mobile-app-nav {
+          display: none;
+        }
+        body {
+          padding-bottom: 0;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .pnr-card {
+          padding: 1.25rem;
+          border-radius: 20px;
+        }
+        .pnr-input-row {
+          flex-direction: column;
+          background: transparent;
+          border: none;
+          padding: 0;
+        }
+        .pnr-input-row input {
+          background: #f8fafc;
+          border: 1.5px solid #cbd5e1;
+          border-radius: 14px;
+          padding: 0.9rem 1rem;
+        }
+        .pnr-input-row button {
+          width: 100%;
+          padding: 0.95rem;
+          border-radius: 14px;
+        }
+        .pnr-hero-cta {
+          width: 100%;
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body id="top">
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand">
+          <a href="#top" class="brand-logo-link">
+            <img
+              src="https://i.ibb.co/0yJmyGsq/5-CE560-C2-E873-4-D33-A158-D3-D3-A449753-B.png"
+              alt="Amit Travels logo"
+              class="brand-logo"
+            />
+          </a>
+          <div class="brand-copy">
+            <span class="brand-tag">Smart Travel App</span>
+            <h1>Amit Travels</h1>
+          </div>
+        </div>
