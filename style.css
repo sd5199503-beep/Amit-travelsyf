@@ -1,0 +1,342 @@
+:root {
+  --primary: #0f172a;
+  --accent: #f97316;
+  --accent-gradient: linear-gradient(135deg, #f97316, #ea580c);
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --radius: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  padding-bottom: 40px;
+}
+
+/* App Header */
+.app-header {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.header-container {
+  max-width: 480px; /* Mobile App Frame look */
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.brand-box h1 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.brand-box span {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.app-nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.app-nav a {
+  text-decoration: none;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.app-nav .admin-badge {
+  background: var(--primary);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* Main Container */
+.app-main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* Hero Banner & Booking Card */
+.hero-banner {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.hero-banner h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.hero-banner p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.booking-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+  margin-bottom: 24px;
+}
+
+.tab-options {
+  display: flex;
+  background: var(--bg-color);
+  padding: 4px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.app-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.app-tab.active {
+  background: #fff;
+  color: var(--primary);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.app-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  outline: none;
+  background: var(--bg-color);
+}
+
+.input-group input:focus {
+  border-color: var(--accent);
+  background: #fff;
+}
+
+.primary-btn {
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  margin-top: 6px;
+}
+
+/* Tools Section */
+.tools-section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  margin-bottom: 12px;
+}
+
+.section-title h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.section-title p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.tools-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tool-card-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 14px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.tool-card-btn:active {
+  transform: scale(0.98);
+}
+
+.tool-card-btn .icon {
+  font-size: 1.4rem;
+  background: #fff7ed;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.tool-card-btn strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--primary);
+}
+
+.tool-card-btn small {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+/* Services Grid */
+.services-section {
+  margin-bottom: 24px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.service-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 14px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.service-item span {
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.service-item h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.service-item p {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Wallet Card */
+.wallet-box-modern {
+  background: var(--primary);
+  color: white;
+  padding: 20px;
+  border-radius: var(--radius);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.wallet-box-modern .badge {
+  background: rgba(255,255,255,0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+}
+
+.wallet-box-modern h3 {
+  font-size: 1.2rem;
+  margin: 6px 0 2px 0;
+}
+
+.wallet-box-modern p {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.secondary-btn {
+  background: #fff;
+  color: var(--primary);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+/* Footer */
+.app-footer {
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.founder-credit {
+  margin-top: 4px;
+  color: var(--primary);
+}
