@@ -782,7 +782,7 @@
         <section id="irctc-sec">
           <div class="sec-head">
             <h3>IRCTC Live Services</h3>
-            <span class="live-badge"><span class="live-dot"></span> API Connected</span>
+            <span class="live-badge"><span class="live-dot"></span> Live Portal</span>
           </div>
 
           <div class="irctc-grid">
@@ -791,7 +791,7 @@
                 <div class="irctc-icon ic-pnr">🚆</div>
                 <div class="irctc-text">
                   <strong>PNR Status</strong>
-                  <span>Check real-time ticket & coach position</span>
+                  <span>Check real-time status on RailTC</span>
                 </div>
               </div>
               <span class="chevron">›</span>
@@ -917,7 +917,7 @@
             <label for="pnrInput">Enter 10-Digit PNR Number</label>
             <input id="pnrInput" type="tel" maxlength="10" placeholder="e.g. 2451896320" />
           </div>
-          <button type="button" class="btn-cta" onclick="checkPnrStatus()">Check Live PNR Status</button>
+          <button type="button" class="btn-cta" onclick="checkPnrStatus()">Open Live PNR on RailTC</button>
         </div>
 
         <!-- Confirmation Chance Form -->
@@ -1034,7 +1034,7 @@
         resultBox.innerHTML = "";
 
         if (type === "pnr") {
-          title.textContent = "🚆 Live PNR Status";
+          title.textContent = "🚆 RailTC PNR Status";
           document.getElementById("form-pnr").style.display = "block";
         } else if (type === "chance") {
           title.textContent = "📊 Confirmation Chance";
@@ -1055,7 +1055,7 @@
         if (e.target.id === "irctcModal") closeToolModal();
       }
 
-      // Helper: Call RapidAPI IRCTC Endpoint with Graceful Live Fallback
+      // Helper: Call RapidAPI IRCTC Endpoint
       async function fetchIrctcEndpoint(endpoint) {
         const res = await fetch(`https://${RAPID_API_HOST}${endpoint}`, {
           method: "GET",
@@ -1068,44 +1068,19 @@
         return await res.json();
       }
 
-      // 1. PNR Status Handler
-      async function checkPnrStatus() {
+      // 1. PNR Status Handler - Opens railtc.in directly
+      function checkPnrStatus() {
         const pnr = document.getElementById("pnrInput").value.trim();
-        const box = document.getElementById("apiResultBox");
 
         if (!/^\d{10}$/.test(pnr)) {
-          showToast("Please enter a valid 10-digit PNR");
+          showToast("Please enter a valid 10-digit PNR number");
           return;
         }
 
-        box.classList.add("show");
-        box.innerHTML = "<p style='font-size:0.85rem;color:#64748b;'>Fetching live IRCTC PNR status...</p>";
-
-        try {
-          const data = await fetchIrctcEndpoint(`/api/v3/getPNRStatus?pnrNumber=${pnr}`);
-          if (data && data.data && data.data.TrainName) {
-            const d = data.data;
-            const pax = d.PassengerStatus?.[0] || {};
-            box.innerHTML = `
-              <div class="stat-row"><span>PNR Number</span><strong>${pnr}</strong></div>
-              <div class="stat-row"><span>Train</span><strong>${d.TrainNo} - ${d.TrainName}</strong></div>
-              <div class="stat-row"><span>Route</span><strong>${d.From} → ${d.To}</strong></div>
-              <div class="stat-row"><span>DOJ / Class</span><strong>${d.Doj} (${d.Class})</strong></div>
-              <div class="stat-row"><span>Current Status</span><span class="badge-status bg-green">${pax.CurrentStatus || "CNF / B2 / 42"}</span></div>
-            `;
-            return;
-          }
-          throw new Error("Empty payload");
-        } catch (err) {
-          // Structured fallback when PNR is dummy or RapidAPI quota/CORS restricts browser call
-          box.innerHTML = `
-            <div class="stat-row"><span>PNR Number</span><strong>${pnr}</strong></div>
-            <div class="stat-row"><span>Train</span><strong>12952 - Mumbai Rajdhani</strong></div>
-            <div class="stat-row"><span>Route</span><strong>NDLS → MMCT</strong></div>
-            <div class="stat-row"><span>Chart Status</span><strong>Chart Not Prepared</strong></div>
-            <div class="stat-row"><span>Passenger 1</span><span class="badge-status bg-green">CNF / B4 / 21 (LB)</span></div>
-          `;
-        }
+        showToast("Redirecting to RailTC live PNR...");
+        setTimeout(() => {
+          window.open("https://railtc.in/", "_blank");
+        }, 600);
       }
 
       // 2. Confirmation Chance Handler
@@ -1122,21 +1097,11 @@
         box.classList.add("show");
         box.innerHTML = "<p style='font-size:0.85rem;color:#64748b;'>Calculating confirmation probability...</p>";
 
-        // Extract WL number to compute realistic probability
         const numMatch = wl.match(/\d+/);
         const wlNum = numMatch ? parseInt(numMatch[0], 10) : 10;
         let prob = wl.toUpperCase().includes("RAC")
           ? Math.max(78, 96 - wlNum)
           : Math.max(24, Math.min(94, 92 - wlNum * 3));
-
-        try {
-          if (pnr) {
-            const data = await fetchIrctcEndpoint(`/api/v3/getPNRStatus?pnrNumber=${pnr}`);
-            if (data?.data?.PassengerStatus?.[0]?.ConfirmTktStatus) {
-              prob = parseInt(data.data.PassengerStatus[0].ConfirmTktStatus, 10) || prob;
-            }
-          }
-        } catch (e) {}
 
         const label = prob >= 75 ? "High Chance" : prob >= 50 ? "Moderate Chance" : "Low Chance";
         const badgeClass = prob >= 75 ? "bg-green" : "bg-amber";
