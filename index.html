@@ -3,11 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Amit Travels | Premium Travel Booking</title>
-    <meta
-      name="description"
-      content="Amit Travels helps you book train tickets, flights, buses, and utility bill payments with direct UPI support."
-    />
+    <title>Amit Travels | Premium Travel App</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,229 +11,154 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <!-- Embedded IRCTC API Key Configuration -->
     <script>
       window.IRCTC_API_KEY = "4a84bb6828msh68d5f4f960519e9p1cdc8ajsnc36e3f47d959";
     </script>
   </head>
   <body>
-    <header class="topbar">
-      <div class="container nav">
-        <div class="brand">
-          <a href="https://ibb.co/zVfQV46s" target="_blank" rel="noopener noreferrer" class="brand-logo-link">
-            <img
-              src="https://i.ibb.co/0yJmyGsq/5-CE560-C2-E873-4-D33-A158-D3-D3-A449753-B.png"
-              alt="Amit Travels logo"
-              class="brand-logo"
-            />
-          </a>
-          <div class="brand-copy">
-            <span class="brand-tag">Premium travel planner</span>
+    <!-- App Header / Navbar -->
+    <header class="app-header">
+      <div class="header-container">
+        <div class="brand-box">
+          <img
+            src="https://i.ibb.co/0yJmyGsq/5-CE560-C2-E873-4-D33-A158-D3-D3-A449753-B.png"
+            alt="Amit Travels Logo"
+            class="app-logo"
+          />
+          <div>
             <h1>Amit Travels</h1>
+            <span>Smart Travel Planner</span>
           </div>
         </div>
-
-        <nav class="main-nav">
+        <nav class="app-nav">
           <a href="#services">Services</a>
-          <a href="#train-features">Train Live Tools</a>
+          <a href="#tools">IRCTC Tools</a>
           <a href="#wallet">Wallet</a>
-          <a href="#help">Help</a>
-          <a href="admin.html" class="admin-link">Admin Panel</a>
+          <a href="admin.html" class="admin-badge">Admin</a>
         </nav>
-
-        <div class="auth-buttons">
-          <button class="btn btn-light login-btn" data-provider="Google">Google</button>
-          <button class="btn btn-primary login-btn" data-provider="Facebook">Facebook</button>
-          <a href="admin.html" class="btn btn-primary admin-link-btn">Admin</a>
-        </div>
       </div>
     </header>
 
-    <main>
-      <section class="hero">
-        <div class="hero-glow"></div>
-        <div class="container hero-grid">
-          <div class="hero-copy">
-            <span class="eyebrow">Smart travel bookings</span>
-            <h2>Fly, ride, and travel smarter with Amit Travels.</h2>
-            <p>
-              Book train, flight, and bus tickets; check live train status;
-              pay utility bills; and plan every journey with confidence.
-            </p>
+    <main class="app-main">
+      <!-- Hero Booking Section -->
+      <section class="hero-card-container">
+        <div class="hero-banner">
+          <h2>Travel Smarter, Live More</h2>
+          <p>Book trains, flights, buses & check live IRCTC stats instantly.</p>
+        </div>
 
-            <div class="booking-panel">
-              <div class="panel-tabs" aria-label="Booking types">
-                <button class="tab active" type="button" data-type="Train Ticket">Train</button>
-                <button class="tab" type="button" data-type="Flight Ticket">Flight</button>
-                <button class="tab" type="button" data-type="Bus Ticket">Bus</button>
-              </div>
-
-              <form id="bookingForm" class="booking-form">
-                <div class="field-group">
-                  <label for="fromCity">From</label>
-                  <input id="fromCity" name="from" type="text" value="Delhi" required />
-                </div>
-
-                <div class="field-group">
-                  <label for="toCity">To</label>
-                  <input id="toCity" name="to" type="text" value="Mumbai" required />
-                </div>
-
-                <div class="field-group field-date">
-                  <label for="travelDate">Travel date</label>
-                  <input id="travelDate" name="date" type="date" value="2026-09-22" />
-                  <div class="date-pills" aria-label="Quick date choices">
-                    <button type="button" class="date-pill active" data-date="2026-09-22"><span class="tick">✓</span>22 Sep</button>
-                    <button type="button" class="date-pill" data-date="2026-09-25"><span class="tick">○</span>25 Sep</button>
-                    <button type="button" class="date-pill" data-date="2026-09-29"><span class="tick">○</span>29 Sep</button>
-                    <button type="button" class="date-pill" data-date="2026-10-02"><span class="tick">○</span>02 Oct</button>
-                    <button type="button" class="date-pill" data-date="2026-10-05"><span class="tick">○</span>05 Oct</button>
-                  </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary submit-btn">Book Now</button>
-              </form>
-            </div>
+        <div class="booking-card">
+          <div class="tab-options">
+            <button class="app-tab active">Train</button>
+            <button class="app-tab">Flight</button>
+            <button class="app-tab">Bus</button>
           </div>
 
-          <!-- Train Quick Tools Side Card -->
-          <div class="hero-side" id="train-features">
-            <div class="spotlight-card">
-              <span class="mini-tag">IRCTC Live Services</span>
-              <h3>Train Quick Actions</h3>
-              <p style="font-size: 0.9rem; margin-bottom: 1rem; color: #555;">
-                Instant access using official IRCTC API integration.
-              </p>
-              
-              <div style="display: flex; flex-direction: column; gap: 10px;">
-                <button class="btn btn-primary wide" id="btnPnrStatus" type="button">
-                  🚆 PNR Status
-                </button>
-                <button class="btn btn-primary wide" id="btnConfChance" type="button">
-                  📊 Confirmation Chance
-                </button>
-                <button class="btn btn-primary wide" id="btnTrainLive" type="button">
-                  📍 Train Current Location
-                </button>
-              </div>
+          <form class="app-form">
+            <div class="input-group">
+              <label>From</label>
+              <input type="text" value="Delhi" required />
             </div>
+            <div class="input-group">
+              <label>To</label>
+              <input type="text" value="Mumbai" required />
+            </div>
+            <div class="input-group">
+              <label>Travel Date</label>
+              <input type="date" value="2026-09-22" />
+            </div>
+            <button type="submit" class="primary-btn">Search & Book Now</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- IRCTC Live Action Tools -->
+      <section class="tools-section" id="tools">
+        <div class="section-title">
+          <h3>IRCTC Live Tools</h3>
+          <p>Direct API integration for live train updates</p>
+        </div>
+
+        <div class="tools-grid">
+          <button class="tool-card-btn" id="btnPnrStatus">
+            <span class="icon">🚆</span>
+            <div>
+              <strong>PNR Status</strong>
+              <small>Check live seat status</small>
+            </div>
+          </button>
+
+          <button class="tool-card-btn" id="btnConfChance">
+            <span class="icon">📊</span>
+            <div>
+              <strong>Confirmation Chance</strong>
+              <small>WL prediction algorithm</small>
+            </div>
+          </button>
+
+          <button class="tool-card-btn" id="btnTrainLive">
+            <span class="icon">📍</span>
+            <div>
+              <strong>Train Current Location</strong>
+              <small>Real-time running status</small>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <!-- Services Section -->
+      <section class="services-section" id="services">
+        <div class="section-title">
+          <h3>Our Services</h3>
+          <p>Everything you need for a seamless trip</p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-item">
+            <span>🚆</span>
+            <h4>Train Tickets</h4>
+            <p>Instant bookings & quotas</p>
+          </div>
+          <div class="service-item">
+            <span>✈️</span>
+            <h4>Flight Tickets</h4>
+            <p>Best fares globally</p>
+          </div>
+          <div class="service-item">
+            <span>🚌</span>
+            <h4>Bus Tickets</h4>
+            <p>Comfortable AC/Non-AC buses</p>
+          </div>
+          <div class="service-item">
+            <span>💡</span>
+            <h4>Utility Bills</h4>
+            <p>Secure instant payments</p>
           </div>
         </div>
       </section>
 
-      <section class="services" id="services">
-        <div class="container">
-          <div class="section-heading">
-            <span class="eyebrow">Services</span>
-            <h3>Travel essentials for every journey</h3>
-          </div>
-
-          <div class="service-grid">
-            <article class="service-card">
-              <div class="icon">🚆</div>
-              <h4>Train Tickets</h4>
-              <p>Quick reservations with flexible schedules and smooth travel planning.</p>
-            </article>
-            <article class="service-card">
-              <div class="icon">✈️</div>
-              <h4>Flight Tickets</h4>
-              <p>Book domestic and international flights with the best available fares.</p>
-            </article>
-            <article class="service-card">
-              <div class="icon">🚌</div>
-              <h4>Bus Tickets</h4>
-              <p>Reserve comfortable seats for city and intercity bus journeys.</p>
-            </article>
-            <article class="service-card">
-              <div class="icon">💡</div>
-              <h4>Utility Bill Payment</h4>
-              <p>Pay electricity, gas, broadband, and other essential bills in seconds.</p>
-            </article>
-            <article class="service-card">
-              <div class="icon">🛡️</div>
-              <h4>Travel Support</h4>
-              <p>Get instant assistance from our travel team before and during your trip.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="wallet" id="wallet">
-        <div class="container wallet-grid">
-          <div class="wallet-card balance-card">
-            <span class="eyebrow">Wallet</span>
-            <h3>Available Balance</h3>
-            <div class="amount">₹2,450</div>
-            <p class="wallet-note">Use your wallet balance for secure and instant payment.</p>
-            <button class="btn btn-primary wallet-btn" data-method="Wallet Payment">Pay via Wallet</button>
-          </div>
-
-          <div class="wallet-card info-card">
-            <span class="eyebrow">Secure payment</span>
-            <h3>Multiple payment options</h3>
-            <ul>
-              <li>Wallet payment</li>
-              <li>Direct UPI payment</li>
-              <li>Instant booking confirmation</li>
-            </ul>
-            <button class="btn btn-light payment-btn" data-method="UPI Payment">Pay via UPI</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="payments" id="payments">
-        <div class="container payment-wrap">
-          <div class="section-heading">
-            <span class="eyebrow">Payments</span>
-            <h3>Fast, simple, and secure</h3>
-          </div>
-
-          <div class="payment-boxes">
-            <div class="payment-box">
-              <h4>Wallet Payment</h4>
-              <p>Use your stored balance for smooth and instant checkout.</p>
-            </div>
-            <div class="payment-box highlight">
-              <h4>Direct UPI</h4>
-              <p>Pay directly to: amittravels@upi</p>
-            </div>
-            <div class="payment-box">
-              <h4>Cashless Booking</h4>
-              <p>Card, net banking, and quick support for every trip booking.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="help" id="help">
-        <div class="container help-grid">
+      <!-- Wallet & Support Section -->
+      <section class="wallet-section" id="wallet">
+        <div class="wallet-box-modern">
           <div>
-            <span class="eyebrow">Need help?</span>
-            <h3>Connect with our travel support team</h3>
-            <p>
-              Need a quick update on your ticket or payment? Contact us on WhatsApp
-              and we will assist you instantly.
-            </p>
+            <span class="badge">App Wallet</span>
+            <h3>₹2,450 Available</h3>
+            <p>Fast checkout with zero transaction fees.</p>
           </div>
-
-          <div class="help-card">
-            <div class="whatsapp-icon">💬</div>
-            <p>WhatsApp Support</p>
-            <a href="https://wa.me/918521694137" target="_blank" rel="noopener noreferrer">8521694137</a>
-          </div>
+          <button class="secondary-btn">Top Up Wallet</button>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="container footer-inner" style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
-        <p>©️ 2026 Amit Travels. Your journey, our service.</p>
-        <p style="font-weight: 600; color: #333;">CEO and founder amit das</p>
+    <!-- Professional Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <p>© 2026 Amit Travels. All rights reserved.</p>
+        <p class="founder-credit">CEO and Founder: <strong>Amit Das</strong></p>
       </div>
     </footer>
 
-    <div id="toast" class="toast" aria-live="polite"></div>
-
+    <div id="toast" class="toast"></div>
     <script src="script.js"></script>
   </body>
 </html>
